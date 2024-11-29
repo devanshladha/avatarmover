@@ -1,3 +1,5 @@
+<!-- code without avatar image, with avatar image code is commented below -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,7 +125,7 @@
 
 
 
-
+<!-- with avatar image -->
 
 <!--  <!DOCTYPE html>
 <html lang="en">
