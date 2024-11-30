@@ -127,7 +127,8 @@
 
 <!-- with avatar image -->
 
-<!--  <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -171,8 +172,8 @@
         const avatarSize = 30;
         const artifactSize = 40;
         const avatarImage = new Image();
-        avatarImage.src = 'avatar-walk.png';
-        const frameCount = 4;  // Adjust based on the number of frames in your image
+        avatarImage.src = '../src/avatar.jpg';  // Update the path to the sprite sheet image
+        const frameCount = 11;  // Adjust based on the number of frames in your image
         let currentFrame = 0;
 
         const artifacts = [
@@ -192,8 +193,10 @@
 
             // Draw avatar
             const frameWidth = avatarImage.width / frameCount;
-            const frameHeight = avatarImage.height;
-            context.drawImage(avatarImage, currentFrame * frameWidth, 0, frameWidth, frameHeight, avatar.x, avatar.y, avatarSize, avatarSize);
+            const frameHeight = avatarImage.height / 4;  // Assuming 4 rows for different directions
+            const row = Math.floor(currentFrame / frameCount);
+            const col = currentFrame % frameCount;
+            context.drawImage(avatarImage, col * frameWidth, row * frameHeight, frameWidth, frameHeight, avatar.x, avatar.y, avatarSize, avatarSize);
 
             // Draw artifacts
             artifacts.forEach(artifact => {
@@ -230,24 +233,27 @@
             let newY = avatar.y;
 
             switch (event.key) {
-                case 'ArrowUp':
-                    newY = Math.max(0, avatar.y - speed);
-                    break;
                 case 'ArrowDown':
-                    newY = Math.min(canvas.height - avatarSize, avatar.y + speed);
-                    break;
-                case 'ArrowLeft':
-                    newX = Math.max(0, avatar.x - speed);
+                    newY = Math.max(0, avatar.y + speed);
+                    currentFrame = (currentFrame + 1) % frameCount + frameCount * 3;  // Update for upward movement
                     break;
                 case 'ArrowRight':
                     newX = Math.min(canvas.width - avatarSize, avatar.x + speed);
+                    currentFrame = (currentFrame + 1) % frameCount;  // Update for downward movement
+                    break;
+                case 'ArrowLeft':
+                    newX = Math.max(0, avatar.x - speed);
+                    currentFrame = (currentFrame + 1) % frameCount + frameCount * 1;  // Update for leftward movement
+                    break;
+                case 'ArrowUp':
+                    newY = Math.min(canvas.height - avatarSize, avatar.y - speed);
+                    currentFrame = (currentFrame + 1) % frameCount + frameCount * 2;  // Update for rightward movement
                     break;
             }
 
             if (!isCollision(newX, newY)) {
                 avatar.x = newX;
                 avatar.y = newY;
-                currentFrame = (currentFrame + 1) % frameCount;
             }
 
             drawMuseum();
@@ -258,4 +264,5 @@
     </script>
 </body>
 </html>
+
  -->
